@@ -19,6 +19,8 @@ Header append Vary User-Agent env=!dont-vary
  ExpiresByType image/jpeg "access plus 2592000 seconds"
  ExpiresByType image/png "access plus 2592000 seconds"
  ExpiresByType image/gif "access plus 2592000 seconds"
+ ExpiresByType image/webp "access plus 2592000 seconds"
+
  AddType image/x-icon .ico
  ExpiresByType image/ico "access plus 2592000 seconds"
  ExpiresByType image/icon "access plus 2592000 seconds"
@@ -36,21 +38,21 @@ Header append Vary User-Agent env=!dont-vary
 # BEGIN Cache-Control Headers
 
 <IfModule mod_headers.c>
- <FilesMatch "\\.(ico|jpe?g|png|gif|swf|gz|ttf)$">
- Header set Cache-Control "max-age=-1, public"
+ <FilesMatch "\\.(ico|jpeg|png|gif|webp|swf|gz|ttf|woff)$">
+ Header set Cache-Control "max-age=2592000, public"
  </FilesMatch>
  <FilesMatch "\\.(css)$">
- Header set Cache-Control "max-age=-1, public"
+ Header set Cache-Control "max-age=2592000, public"
  </FilesMatch>
  <FilesMatch "\\.(js)$">
- Header set Cache-Control "max-age=-1, private"
+ Header set Cache-Control "max-age=2592000, private"
  </FilesMatch>
 <filesMatch "\\.(html|htm)$">
-Header set Cache-Control "max-age=-1, public"
+Header set Cache-Control "max-age=7200, public"
 </filesMatch>
 # Disable caching for scripts and other dynamic files
 <FilesMatch "\.(pl|php|cgi|spl|scgi|fcgi)$">
-Header unset Cache-Control
+Cache-Control: "no-cache"
 </FilesMatch>
 </IfModule>
 # END Cache-Control Headers
